@@ -65,32 +65,40 @@ def main(argv):
 					continue
 
 				error.append(e)
-				
-	print("Errors:")
-	print("-------")
-	for err in error:
-		print(err)
-		
-	print()
-	print("Errors: Not a VS-Plugin")
-	print("-------")
-	for err in errorNoEntry:
-		print(err)
 	
-	print()
-	print("Errors: incorrect bitness (32bit instead of 64bit) or corrupt file.")
-	print("-------")
-	for err in error32bit:
-		print(err)
-		
-	print()
-	print("Notices:")
-	print("-------")
-	for n in notice:
-		print(n)
+	error_count = len(error) + len(error32bit) + len(errorNoEntry)
+	if error:
+		print("Errors:")
+		print("-------")
+		for err in error:
+			print(err)
+	
+	if errorNoEntry:
+		print()
+		print("Errors: Not a VS-Plugin")
+		print("-------")
+		for err in errorNoEntry:
+			print(err)
+			
+	if error32bit:
+		print()
+		print("Errors: incorrect bitness (32bit instead of 64bit) or corrupt file.")
+		print("-------")
+		for err in error32bit:
+			print(err)
+			
+	if notice:
+		print()
+		print("Notices:")
+		print("-------")
+		for n in notice:
+			print(n)
+			
+	if error_count == 0:
+		print("No problems found, nice!")
 		
 	print('#######################################')
-	print("Found", len(plugin_dir), "dlls. Errors:", (len(error) + len(error32bit) + len(errorNoEntry)), "Notices:", len(notice))
+	print("Found", len(plugin_dir), "dlls. Errors:", error_count, "Notices:", len(notice))
 	print()
 
 
