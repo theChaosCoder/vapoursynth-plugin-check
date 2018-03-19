@@ -5,7 +5,6 @@ A small python script to check for incorrect vapoursynth plugins in the autoload
 vs_plugin_check.py "path-to-vapoursynth-plugins-folder"
 
 ## Todo
-- Find and set path of VS installation via registry
 - Make it work with VS portable
 
 ### Example Output
@@ -16,6 +15,9 @@ Copyright (c) 2012-2018 Fredrik Mellbin
 Core R43
 API R3.5
 Options: -
+
+Architecture 64bit - Windows-10-10.0.16299-SP0
+Python build: ('v3.6.4:d48eceb', 'Dec 19 2017 06:54:40')
 
 #######################################
 checking dlls in E:\PortableApps\VapourSynth\plugins64
