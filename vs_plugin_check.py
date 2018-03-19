@@ -1,25 +1,46 @@
 import sys, os, glob
 import vapoursynth as vs
 import winreg
+import platform
 
 def print_version(core):
 	vs_version = core.version()
 	print('#######################################')
 	print(vs_version)
+	
+	print("Architecture", platform.architecture()[0], "-", platform.platform())
+	print("Python build:", platform.python_build(), "\n")
 	print('#######################################')
 
+	
+def getWindowsPluginPath():
+	try:
+		aReg = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
+		aKey = winreg.OpenKey(aReg, r"SOFTWARE\VapourSynth")
+		q = winreg.QueryValueEx(aKey, 'Plugins')
+		return q[0]
+	except Exception as e:
+		pass
+		
+	return None
+
 def main(argv):
+	
 	if(len(sys.argv) > 1):
 		path = argv[1]
 	else:
-		exit("\n\rUsage: vs_plugin_check.py <path-to-vapoursynth-plugins-folder>\n\r")
+		path = getWindowsPluginPath()
+		if not path:
+			print("\nNo VapourSynth installation found. Please specify a path to your plugins folder")
+			exit("\n\rUsage: vs_plugin_check.py <path-to-vapoursynth-plugins-folder>\n\r")
+		#print("\nFound the following path:", path)
 	
 	core = vs.get_core()
 	print_version(core)
 	plugin_dir = glob.glob(path + '/*.dll')
 	
 	print("checking dlls in", path)
-	print('#######################################')
+	print('#######################################\n')
 	
 	error = []
 	error32bit = []
