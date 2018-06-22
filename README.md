@@ -4,8 +4,14 @@ A small python script to check for incorrect vapoursynth plugins in the autoload
 ## Usage
 vs_plugin_check.py "path-to-vapoursynth-plugins-folder"
 
-## Todo
-- Make it work with VS portable
+for portable VS use this bat example:
+```
+@ECHO OFF
+VapourSynth64\python.exe VapourSynth64\vs_plugin_check.py %cd%\VapourSynth64\vapoursynth64\plugins
+pause
+```
+
+core.std.LoadPlugin needs a full path otherwise this message is shown **LoadLibraryEx failed with code 87: Update windows and try again**
 
 ### Example Output
 ```
